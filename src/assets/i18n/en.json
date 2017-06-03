@@ -1,7 +1,8 @@
 {
   "BACK_BUTTON_TEXT" : "Back",
 
-  "NAME": "Name",
+  "FIRST_NAME": "First Name",
+  "LAST_NAME": "Last Name",
   "EMAIL": "Email",
   "USERNAME": "Username",
   "PASSWORD": "Password",

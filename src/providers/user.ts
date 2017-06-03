@@ -57,7 +57,7 @@ export class User {
    * the user entered on the form.
    */
   signup(accountInfo: any) {
-    let seq = this.api.post('signup', accountInfo).share();
+    let seq = this.api.post('register', accountInfo).share();
 
     seq
       .map(res => res.json())

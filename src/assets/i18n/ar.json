@@ -1,7 +1,8 @@
 {
   "BACK_BUTTON_TEXT" : "رجوع",
 
-  "NAME": "الاسم",
+  "FIRST_NAME": "الاسم",
+  "LAST_NAME": "اسم العائلة",
   "EMAIL": "البريد الإلكتروني",
   "USERNAME": "اسم المستخدم",
   "PASSWORD": "كلمة السر",

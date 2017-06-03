@@ -15,8 +15,9 @@ export class SignupPage {
   // The account fields for the login form.
   // If you're using the username field with or without email, make
   // sure to add it to the type
-  account: { name: string, email: string, password: string } = {
-    name: 'Test Human',
+  account: { firstName: string,lastName: string, email: string, password: string } = {
+    firstName: 'First Name',
+    lastName: 'Last Name',
     email: 'test@example.com',
     password: 'test'
   };
@@ -40,7 +41,7 @@ export class SignupPage {
       this.navCtrl.push(MainPage);
     }, (err) => {
 
-      this.navCtrl.push(MainPage); // TODO: Remove this when you add your signup endpoint
+      // this.navCtrl.push(MainPage); // TODO: Remove this when you add your signup endpoint
 
       // Unable to sign up
       let toast = this.toastCtrl.create({
