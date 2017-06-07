@@ -3,6 +3,8 @@ import { NavController } from 'ionic-angular';
 
 import { LoginPage } from '../login/login';
 import { SignupPage } from '../signup/signup';
+import {Storage} from "@ionic/storage";
+import {MainPage} from "../pages";
 
 /**
  * The Welcome Page is a splash page that quickly describes the app,
@@ -16,8 +18,19 @@ import { SignupPage } from '../signup/signup';
 })
 export class WelcomePage {
 
-  constructor(public navCtrl: NavController) { }
+  constructor(public navCtrl: NavController,private storage:Storage) {
 
+  }
+  ionViewDidLoad() {
+    this.checkUser();
+  }
+  checkUser(){
+    this.storage.get('user').then((user)=>{
+      if(user){
+        this.navCtrl.push(MainPage);
+      }
+    })
+  }
   login() {
     this.navCtrl.push(LoginPage);
   }
