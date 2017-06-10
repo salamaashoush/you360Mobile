@@ -9,6 +9,7 @@ import { Items } from '../../providers/providers';
 })
 export class ItemDetailPage {
   item: any;
+  public video = 'https://you360.herokuapp.com/api/videos/stream';
 
   constructor(public navCtrl: NavController, navParams: NavParams, items: Items) {
     this.item = navParams.get('item') || items.defaultItem;

@@ -30,9 +30,15 @@ import { Camera } from '@ionic-native/camera';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { Transfer } from '@ionic-native/transfer';
+import { File } from '@ionic-native/file';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import {PlayerComponent} from "../components/player/player";
+import {FileChooser} from "@ionic-native/file-chooser";
+import {Category} from "../providers/category";
+import {Video} from "../providers/video";
 
 
 
@@ -78,7 +84,8 @@ let pages = [
   SignupPage,
   TabsPage,
   TutorialPage,
-  WelcomePage
+  WelcomePage,
+  PlayerComponent
 ];
 
 export function declarations() {
@@ -98,7 +105,11 @@ export function providers() {
     GoogleMaps,
     SplashScreen,
     StatusBar,
-
+    Transfer,
+    File,
+    FileChooser,
+    Category,
+    Video,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler }

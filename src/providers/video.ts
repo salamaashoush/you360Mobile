@@ -47,7 +47,7 @@ export class Video {
    * Send a POST request to our signup endpoint with the data
    * the user entered on the form.
    */
-  getVideo(videoId: any) {
+  get(videoId: any) {
     let seq = this.api.get(`videos/${videoId}`).share();
 
     seq
@@ -58,6 +58,17 @@ export class Video {
         console.error('ERROR', err);
       });
 
+    return seq;
+  }
+  create(video){
+    let seq = this.api.post(`videos`,video).share();
+    seq
+      .map(res => res.json())
+      .subscribe(res => {
+        // If the API returned a successful response, mark the user as logged in
+      }, err => {
+        console.error('ERROR', err);
+      });
     return seq;
   }
 
