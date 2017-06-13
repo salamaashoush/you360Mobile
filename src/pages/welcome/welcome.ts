@@ -5,6 +5,7 @@ import { LoginPage } from '../login/login';
 import { SignupPage } from '../signup/signup';
 import {Storage} from "@ionic/storage";
 import {FirstRunPage, MainPage} from "../pages";
+import {Api} from "../../providers/api";
 
 /**
  * The Welcome Page is a splash page that quickly describes the app,
@@ -18,28 +19,13 @@ import {FirstRunPage, MainPage} from "../pages";
 })
 export class WelcomePage {
 
-  constructor(public navCtrl: NavController,private storage:Storage) {
+  constructor(public navCtrl: NavController,private storage:Storage,private api:Api) {
 
   }
   ionViewDidLoad() {
-    this.checkFirstRun();
-    this.checkUser();
+
   }
-  checkUser(){
-    this.storage.get('user').then((user)=>{
-      if(user){
-        this.navCtrl.push(MainPage);
-      }
-    })
-  }
-  checkFirstRun(){
-    this.storage.get('introShown').then((result)=>{
-      if(!result){
-        this.navCtrl.push(FirstRunPage);
-        this.storage.set('introShown',true);
-      }
-    });
-  }
+
   login() {
     this.navCtrl.push(LoginPage);
   }

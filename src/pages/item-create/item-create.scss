@@ -1,4 +1,5 @@
 page-item-create {
+  background: white;
   .profile-image-wrapper {
     text-align: center;
     margin: 20px 0;
@@ -31,5 +32,13 @@ page-item-create {
         margin-top: 10px;
       }
     }
+  }
+}
+tags-input{
+  display: flex;
+  flex-wrap: wrap;
+  //padding: 2%;
+  button{
+    font-size: 1.3rem;
   }
 }

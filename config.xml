@@ -3,10 +3,12 @@
     <name>You360</name>
     <description>360 video streaming app</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="http://192.168.1.8:8100" original-src="index.html"/>
+    <content src="index.html"/>
     <access origin="*"/>
     <allow-navigation href="http://ionic.local/*"/>
     <allow-navigation href="http://192.168.1.8:8100"/>
+    <allow-navigation href="http://192.168.43.71:8100"/>
+    <allow-navigation href="http://10.118.49.233:8100"/>
     <allow-intent href="http://*/*"/>
     <allow-intent href="https://*/*"/>
     <allow-intent href="tel:*"/>

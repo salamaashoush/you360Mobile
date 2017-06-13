@@ -8,11 +8,11 @@ import { Items } from '../../providers/providers';
   templateUrl: 'item-detail.html'
 })
 export class ItemDetailPage {
-  item: any;
-  public video = 'https://you360.herokuapp.com/api/videos/stream';
+  video: any;
+  public src = 'https://you360.herokuapp.com/api/videos/stream';
 
-  constructor(public navCtrl: NavController, navParams: NavParams, items: Items) {
-    this.item = navParams.get('item') || items.defaultItem;
+  constructor(public navCtrl: NavController, navParams: NavParams) {
+    this.video = navParams.get('video');
   }
 
 }

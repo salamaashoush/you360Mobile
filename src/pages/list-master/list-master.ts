@@ -3,55 +3,72 @@ import { NavController, ModalController } from 'ionic-angular';
 
 import { ItemCreatePage } from '../item-create/item-create';
 import { ItemDetailPage } from '../item-detail/item-detail';
-
-import { Items } from '../../providers/providers';
-
-import { Item } from '../../models/item';
+import {Video} from "../../providers/video";
+import {Socket} from "../../providers/socket";
+import {Storage} from "@ionic/storage";
 
 @Component({
   selector: 'page-list-master',
   templateUrl: 'list-master.html'
 })
 export class ListMasterPage {
-  currentItems: Item[];
+  videos:any=[];
+  user:any;
+  constructor(public navCtrl: NavController, public video: Video, public modalCtrl: ModalController,public socket:Socket,public storage:Storage) {
+     this.video.all().subscribe((data)=>{
+       this.videos = data.json().docs;
+       console.log(this.videos);
+     });
+     this.storage.get('user').then((user)=>{
+       this.user=user;
+     })
 
-  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController) {
-    this.currentItems = this.items.query();
   }
 
   /**
    * The view loaded, let's query our items for the list
    */
+  ionViewDidEnter(){
+    this.socket.get().subscribe((data) => {
+        this.videos.push(data)
+        console.log(data);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
   ionViewDidLoad() {
+
+
   }
 
   /**
    * Prompt the user to add a new item. This shows our ItemCreatePage in a
    * modal and then adds the new item to our data source if the user created one.
    */
-  addItem() {
-    let addModal = this.modalCtrl.create(ItemCreatePage);
-    addModal.onDidDismiss(item => {
-      if (item) {
-        this.items.add(item);
-      }
-    })
-    addModal.present();
+  addVideo() {
+    this.navCtrl.push(ItemCreatePage);
   }
 
   /**
    * Delete an item from the list of items.
    */
-  deleteItem(item) {
-    this.items.delete(item);
+  deleteVideo(video) {
+    this.video.delete(video.id).subscribe((response)=>{
+      this.videos = this.videos.filter((v)=>{
+        return v.id !== video.id;
+      })
+    })
+
   }
 
   /**
    * Navigate to the detail page for this item.
    */
-  openItem(item: Item) {
+  openVideo(video) {
     this.navCtrl.push(ItemDetailPage, {
-      item: item
+      video
     });
   }
 }

@@ -24,7 +24,7 @@
 
 
 <ion-content>
-  <form *ngIf="form" [formGroup]="form" (ngSubmit)="createItem()">
+  <form *ngIf="form" [formGroup]="form">
     <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
     <div class="profile-image-wrapper" (click)="getPicture()">
       <div class="profile-image-placeholder" *ngIf="!this.form.controls.thumb.value">
@@ -43,13 +43,30 @@
         <ion-input type="text" placeholder="{{ 'ITEM_ABOUT_PLACEHOLDER' | translate }}" formControlName="description"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-select formControlName="name">
-          <ion-option  *ngFor="let cat of categories" value="{{cat.id}}">{{cat.name}}</ion-option>
+        <ion-select formControlName="category" placeholder="Category">
+          <ion-label>Category</ion-label>
+          <ion-option  *ngFor="let cat of categories" value="{{cat.id}}" >{{cat.name}}</ion-option>
         </ion-select>
       </ion-item>
       <ion-item>
-        <button ion-button color="primary" (click)="getVideoUrl()">Choose Video</button>
+        <tags-input formControlName="tags" alertTitleLabel="Add Tag" alertInputPlaceholder="Tag" alertButtonLabel="Add" buttonLabel="Tag"></tags-input>
+      </ion-item>
+      <ion-item>
+        <ion-label *ngIf="videoUrl">Uploading....</ion-label>
+        <ion-spinner *ngIf="isUploading"></ion-spinner>
+      </ion-item>
+      <ion-item>
+        <button ion-button color="primary" full (click)="getVideoUrl()">Choose Video</button>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="lat" formControlName="lat"></ion-input>
+        <ion-input type="text" placeholder="long" formControlName="long"></ion-input>
+      </ion-item>
+      <ion-item>
+        <div #map id="map" style="width:100%;height:200px;"></div>
       </ion-item>
     </ion-list>
+
+
   </form>
 </ion-content>

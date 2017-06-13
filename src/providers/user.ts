@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { Api } from './api';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import {Storage} from "@ionic/storage";
 
 /**
  * Most apps have the concept of a User. This is a simple provider
@@ -29,6 +30,7 @@ export class User {
   _token: any;
 
   constructor(public http: Http, public api: Api) {
+
   }
   /**
    * Send a POST request to our login endpoint with the data
@@ -80,7 +82,9 @@ export class User {
     this._user = null;
     this._token = null;
   }
+  checkAuth(){
 
+  }
   /**
    * Process a login/signup response to store user data
    */
@@ -88,4 +92,5 @@ export class User {
     this._user = resp.user;
     this._token = resp.token;
   }
+
 }

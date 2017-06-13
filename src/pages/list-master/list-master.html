@@ -4,7 +4,7 @@
     <ion-title>{{ 'LIST_MASTER_TITLE' | translate }}</ion-title>
 
     <ion-buttons end>
-      <button ion-button icon-only (click)="addItem()">
+      <button ion-button icon-only (click)="addVideo()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
@@ -15,18 +15,18 @@
 <ion-content>
 
   <ion-list>
-    <ion-item-sliding *ngFor="let item of currentItems">
-      <button ion-item (click)="openItem(item)">
+    <ion-item-sliding *ngFor="let video of videos">
+      <button ion-item (click)="openVideo(video)">
         <ion-avatar item-start>
-          <img [src]="item.profilePic" />
+          <img [src]="video.thumb" />
         </ion-avatar>
-        <h2>{{item.name}}</h2>
-        <p>{{item.about}}</p>
-        <ion-note item-end *ngIf="item.note">{{item.note}}</ion-note>
+        <h2>{{video.name}}</h2>
+        <p>{{video.description}}</p>
+        <ion-note item-end *ngIf="video.description">{{video.description}}</ion-note>
       </button>
 
-      <ion-item-options>
-        <button ion-button color="danger" (click)="deleteItem(item)">
+      <ion-item-options *ngIf="video.owner===user._id">
+        <button ion-button color="danger" (click)="deleteVideo(video)">
           {{ 'DELETE_BUTTON' | translate }}
         </button>
       </ion-item-options>

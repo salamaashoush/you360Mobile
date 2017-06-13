@@ -39,6 +39,12 @@ import {PlayerComponent} from "../components/player/player";
 import {FileChooser} from "@ionic-native/file-chooser";
 import {Category} from "../providers/category";
 import {Video} from "../providers/video";
+import {Socket} from "../providers/socket";
+import { AutoCompleteModule } from 'ionic2-auto-complete';
+import { TagsInputModule } from 'ionic2-tags-input';
+import {SearchComplete} from "../providers/searchComplete";
+
+
 
 
 
@@ -110,6 +116,8 @@ export function providers() {
     FileChooser,
     Category,
     Video,
+    Socket,
+    SearchComplete,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler }
@@ -121,6 +129,8 @@ export function providers() {
   imports: [
     BrowserModule,
     HttpModule,
+    AutoCompleteModule,
+    TagsInputModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

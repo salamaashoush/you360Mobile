@@ -6,16 +6,15 @@ import 'rxjs/add/observable/fromPromise';
 import "rxjs/add/operator/mergeMap";
 import {Storage} from "@ionic/storage";
 import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
-import { File } from '@ionic-native/file';
+
 
 /**
  * Api is a generic REST Api handler. Set your API url first.
  */
 @Injectable()
 export class Api {
-  url: string = 'https://jrogjrhbce.localtunnel.me/api';
-
-  constructor(public http: Http,public storage:Storage,private transfer: Transfer, private file: File) {
+  url: string = 'https://you360.herokuapp.com/api';
+  constructor(public http: Http,public storage:Storage,private transfer: Transfer) {
   }
 
   get(endpoint: string, params?: any, options?: RequestOptions) {
@@ -116,7 +115,6 @@ export class Api {
         };
       }
       // the value that will be returned
-      alert(JSON.stringify(options));
       return Observable.fromPromise(fileTransfer.upload(path, this.url+'/videos/upload', options,true));
     });
   }

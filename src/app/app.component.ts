@@ -20,6 +20,8 @@ import { WelcomePage } from '../pages/welcome/welcome';
 import { Settings } from '../providers/providers';
 
 import { TranslateService } from '@ngx-translate/core'
+import {Api} from "../providers/api";
+import {Storage} from "@ionic/storage";
 
 @Component({
   template: `<ion-menu [content]="content">
@@ -41,7 +43,7 @@ import { TranslateService } from '@ngx-translate/core'
   <ion-nav #content [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage = WelcomePage;
+  rootPage;
 
   @ViewChild(Nav) nav: Nav;
 
@@ -60,8 +62,23 @@ export class MyApp {
     { title: 'Search', component: SearchPage }
   ]
 
-  constructor(private translate: TranslateService, private platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {
+  constructor(private translate: TranslateService, private platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen,public api:Api,public storage:Storage) {
     this.initTranslate();
+    this.storage.get('introShown').then((result)=>{
+      if(!result){
+        this.rootPage=TutorialPage
+        this.storage.set('introShown',true);
+      }else{
+        this.api.get('check').subscribe((data)=>{
+          this.storage.set('token',data.json().token);
+          this.storage.set('user',data.json().user);
+          this.rootPage=TabsPage
+        },(error)=>{
+          this.rootPage=WelcomePage
+        });
+      }
+    });
+
   }
 
   ionViewDidLoad() {
@@ -91,6 +108,13 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    this.api.get('check').subscribe((data)=>{
+      this.storage.set('token',data.json().token);
+      this.storage.set('user',data.json().user);
+      this.nav.setRoot(page.component);
+    },(error)=>{
+      this.nav.setRoot(WelcomePage);
+    });
+
   }
 }

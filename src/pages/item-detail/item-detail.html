@@ -1,22 +1,16 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ item.name }}</ion-title>
+    <ion-title>{{ video.name }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-  <!--<div class="item-profile" text-center #profilePic [style.background-image]="'url(' + item.profilePic + ')'">-->
-  <!--</div>-->
+    <div style="height: 50vh; width: 100%">
+      <player [src]="src"></player>
+    </div>
 
-  <!--<div class="item-detail" padding>-->
-    <!--<h2>{{item.name}}</h2>-->
-    <!--<p>{{item.about}}</p>-->
-  <!--</div>-->
-  <div class="player">
-    <player [src]="video"></player>
-  </div>
 
 </ion-content>

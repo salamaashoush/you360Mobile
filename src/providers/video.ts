@@ -23,7 +23,6 @@ import { Api } from './api';
  */
 @Injectable()
 export class Video {
-
   constructor(public http: Http, public api: Api) {
   }
   /**
@@ -62,6 +61,61 @@ export class Video {
   }
   create(video){
     let seq = this.api.post(`videos`,video).share();
+    seq
+      .map(res => res.json())
+      .subscribe(res => {
+        // If the API returned a successful response, mark the user as logged in
+      }, err => {
+        console.error('ERROR', err);
+      });
+    return seq;
+  }
+  update(videoId,data){
+    let seq = this.api.put(`videos/${videoId}`,data).share();
+    seq
+      .map(res => res.json())
+      .subscribe(res => {
+        // If the API returned a successful response, mark the user as logged in
+      }, err => {
+        console.error('ERROR', err);
+      });
+    return seq;
+  }
+  delete(videoId){
+    let seq = this.api.delete(`videos/${videoId}`).share();
+    seq
+      .map(res => res.json())
+      .subscribe(res => {
+        // If the API returned a successful response, mark the user as logged in
+      }, err => {
+        console.error('ERROR', err);
+      });
+    return seq;
+  }
+  like(videoId){
+    let seq = this.api.put(`videos/${videoId}/like`,{}).share();
+    seq
+      .map(res => res.json())
+      .subscribe(res => {
+        // If the API returned a successful response, mark the user as logged in
+      }, err => {
+        console.error('ERROR', err);
+      });
+    return seq;
+  }
+  dislike(videoId){
+    let seq = this.api.put(`videos/${videoId}/dislike`,{}).share();
+    seq
+      .map(res => res.json())
+      .subscribe(res => {
+        // If the API returned a successful response, mark the user as logged in
+      }, err => {
+        console.error('ERROR', err);
+      });
+    return seq;
+  }
+  comment(videoId,comment){
+    let seq = this.api.post(`videos/${videoId}/comment`,comment).share();
     seq
       .map(res => res.json())
       .subscribe(res => {
