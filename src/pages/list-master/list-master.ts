@@ -15,10 +15,10 @@ export class ListMasterPage {
   videos:any=[];
   user:any;
   constructor(public navCtrl: NavController, public video: Video, public modalCtrl: ModalController,public socket:Socket,public storage:Storage) {
-     this.video.all().subscribe((data)=>{
-       this.videos = data.json().docs;
-       console.log(this.videos);
-     });
+     // this.video.all().subscribe((data)=>{
+     //   this.videos = data.json().docs;
+     //   console.log(this.videos);
+     // });
      this.storage.get('user').then((user)=>{
        this.user=user;
      })
@@ -29,14 +29,9 @@ export class ListMasterPage {
    * The view loaded, let's query our items for the list
    */
   ionViewDidEnter(){
-    this.socket.listen('new video').subscribe((data) => {
-        this.videos.push(data)
-        console.log(data);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    this.video.all().subscribe((data)=>{
+      this.videos = data.json().docs;
+    });
   }
   ionViewDidLoad() {
 

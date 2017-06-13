@@ -62,8 +62,6 @@ export class ItemCreatePage implements OnInit, AfterViewInit {
     });
   }
 
-  ionViewDidLoad() {
-  }
 
   log() {
     let tags = this.form.controls['tags'].value;

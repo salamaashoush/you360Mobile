@@ -39,6 +39,13 @@ export class Socket {
   dislikeVideo(id: any) {
     this.socket.emit('dislike video', {videoId:id,userId:this._user._id});
   }
+  newComment(videoId,comment){
+    this.socket.emit('new comment', {videoId:videoId,comment:{uid:this._user,comment:comment}});
+  }
+  viewVideo(videoId){
+    this.socket.emit('view video', {videoId:videoId});
+  }
+
 
   // Handle connection opening
   private connect() {
