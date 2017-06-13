@@ -93,7 +93,7 @@ export class Video {
     return seq;
   }
   like(videoId){
-    let seq = this.api.put(`videos/${videoId}/like`,{}).share();
+    let seq = this.api.post(`videos/${videoId}/like`,{}).share();
     seq
       .map(res => res.json())
       .subscribe(res => {
@@ -104,7 +104,7 @@ export class Video {
     return seq;
   }
   dislike(videoId){
-    let seq = this.api.put(`videos/${videoId}/dislike`,{}).share();
+    let seq = this.api.post(`videos/${videoId}/dislike`,{}).share();
     seq
       .map(res => res.json())
       .subscribe(res => {
@@ -115,7 +115,7 @@ export class Video {
     return seq;
   }
   comment(videoId,comment){
-    let seq = this.api.post(`videos/${videoId}/comment`,comment).share();
+    let seq = this.api.post(`videos/${videoId}/comments`,comment).share();
     seq
       .map(res => res.json())
       .subscribe(res => {

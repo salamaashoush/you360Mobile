@@ -50,13 +50,18 @@
   "SIGNUP_ERROR": "Unable to create account. Please check your account information and try again.",
   "SIGNUP_BUTTON": "Sign up",
 
-  "LIST_MASTER_TITLE": "Items",
+  "LIST_MASTER_TITLE": "Videos",
 
-  "ITEM_CREATE_TITLE": "New Item",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Add Image",
+  "VIDEO_CREATE_TITLE": "New Video",
+  "VIDEO_CREATE_CHOOSE_IMAGE": "Add Thumbnail",
 
-  "ITEM_NAME_PLACEHOLDER" : "Name",
-  "ITEM_ABOUT_PLACEHOLDER" : "About",
+  "VIDEO_NAME_PLACEHOLDER" : "Name",
+  "VIDEO_DESC_PLACEHOLDER" : "Description",
+  "VIDEO_CAT_PLACEHOLDER" : "Category",
+  "VIDEO_CHOOSE_PLACEHOLDER" : "Choose Video",
+  "VIDEO_LAT_PLACEHOLDER" : "Lat",
+  "VIDEO_LONG_PLACEHOLDER" : "Long",
+  "VIDEO_UPLOAD_PLACEHOLDER" : "Uploading....",
 
   "DONE_BUTTON" : "Done",
   "CANCEL_BUTTON" : "Cancel",
@@ -65,5 +70,5 @@
   "CARDS_TITLE": "Social",
 
   "SEARCH_TITLE": "Search",
-  "SEARCH_PLACEHOLDER" : "Search the items list, e.g. \"Donald Duck\""
+  "SEARCH_PLACEHOLDER" : "Search the videos list, e.g. \"Donald Duck\""
 }

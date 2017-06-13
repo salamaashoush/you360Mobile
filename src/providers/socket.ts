@@ -1,19 +1,22 @@
 import {Injectable} from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import * as io from 'socket.io-client';
+import {Storage} from "@ionic/storage";
 
 
 @Injectable()
 export class Socket {
   socket: any;
-  constructor() {
-    const socketUrl = 'https://you360.herokuapp.com';
-    // const socketUrl = 'http://localhost:3000';
+  _user:any;
+  constructor(public storage:Storage) {
+    // const socketUrl = 'https://you360.herokuapp.com';
+    const socketUrl = 'http://localhost:3000';
     this.socket = io.connect(socketUrl);
+    this.storage.get('user').then((user)=>{this._user=user});
   }
 
   // Get items observable
-  get(): Observable<any> {
+  listen(event): Observable<any> {
     this.socket.on('connect', () => this.connect());
     this.socket.on('disconnect', () => this.disconnect());
     this.socket.on('error', (error: string) => {
@@ -22,7 +25,7 @@ export class Socket {
 
     // Return observable which follows "notification" and "order checkout" signals from socket stream
     return new Observable((observer: any) => {
-      this.socket.on('new video', (video: any) => observer.next({type: 'video', data: video}) );
+      this.socket.on(event, (data: any) => observer.next(data) );
       // return () => this.socket.close();
     });
   }
@@ -30,11 +33,16 @@ export class Socket {
   newVideo(id: any) {
     this.socket.emit('new video created', id);
   }
-
+  likeVideo(id: any) {
+    this.socket.emit('like video', {videoId:id,userId:this._user._id});
+  }
+  dislikeVideo(id: any) {
+    this.socket.emit('dislike video', {videoId:id,userId:this._user._id});
+  }
 
   // Handle connection opening
   private connect() {
-    console.log(`Connected to https://you360.herokuapp.com`);
+    console.log(`Connected to socket`);
 
     // Request initial list when connected
     // this.socket.emit('login', this.appService.user);

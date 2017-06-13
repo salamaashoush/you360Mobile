@@ -22,7 +22,7 @@
         </ion-avatar>
         <h2>{{video.name}}</h2>
         <p>{{video.description}}</p>
-        <ion-note item-end *ngIf="video.description">{{video.description}}</ion-note>
+        <ion-note item-end>{{video.views + " Views"}}</ion-note>
       </button>
 
       <ion-item-options *ngIf="video.owner===user._id">

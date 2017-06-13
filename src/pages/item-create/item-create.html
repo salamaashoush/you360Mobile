@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ 'ITEM_CREATE_TITLE' | translate }}</ion-title>
+    <ion-title>{{ 'VIDEO_CREATE_TITLE' | translate }}</ion-title>
     <ion-buttons start>
       <button ion-button (click)="cancel()">
         <span color="primary" showWhen="ios">
@@ -30,21 +30,21 @@
       <div class="profile-image-placeholder" *ngIf="!this.form.controls.thumb.value">
         <ion-icon name="add"></ion-icon>
         <div>
-          {{ 'ITEM_CREATE_CHOOSE_IMAGE' | translate }}
+          {{ 'VIDEO_CREATE_CHOOSE_IMAGE' | translate }}
         </div>
       </div>
       <div class="profile-image" [style.backgroundImage]="getProfileImageStyle()" *ngIf="this.form.controls.thumb.value"></div>
     </div>
     <ion-list>
       <ion-item>
-        <ion-input type="text" placeholder="{{ 'ITEM_NAME_PLACEHOLDER' | translate }}" formControlName="name"></ion-input>
+        <ion-input type="text" placeholder="{{ 'VIDEO_NAME_PLACEHOLDER' | translate }}" formControlName="name"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="text" placeholder="{{ 'ITEM_ABOUT_PLACEHOLDER' | translate }}" formControlName="description"></ion-input>
+        <ion-input type="text" placeholder="{{ 'VIDEO_DESC_PLACEHOLDER' | translate }}" formControlName="description"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-select formControlName="category" placeholder="Category">
-          <ion-label>Category</ion-label>
+        <ion-select formControlName="category" placeholder="{{ 'VIDEO_CAT_PLACEHOLDER' | translate }}">
+          <ion-label>{{ 'VIDEO_CAT_PLACEHOLDER' | translate }}</ion-label>
           <ion-option  *ngFor="let cat of categories" value="{{cat.id}}" >{{cat.name}}</ion-option>
         </ion-select>
       </ion-item>
@@ -56,11 +56,11 @@
         <ion-spinner *ngIf="isUploading"></ion-spinner>
       </ion-item>
       <ion-item>
-        <button ion-button color="primary" full (click)="getVideoUrl()">Choose Video</button>
+        <button ion-button color="primary" full (click)="getVideoUrl()">{{ 'VIDEO_CHOOSE_PLACEHOLDER' | translate }}</button>
       </ion-item>
       <ion-item>
-        <ion-input type="text" placeholder="lat" formControlName="lat"></ion-input>
-        <ion-input type="text" placeholder="long" formControlName="long"></ion-input>
+        <ion-input type="text" placeholder="{{ 'VIDEO_LAT_PLACEHOLDER' | translate }}" formControlName="lat"></ion-input>
+        <ion-input type="text" placeholder="{{ 'VIDEO_LONG_PLACEHOLDER' | translate }}" formControlName="long"></ion-input>
       </ion-item>
       <ion-item>
         <div #map id="map" style="width:100%;height:200px;"></div>

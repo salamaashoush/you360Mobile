@@ -13,7 +13,8 @@ import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/trans
  */
 @Injectable()
 export class Api {
-  url: string = 'https://you360.herokuapp.com/api';
+  // url: string = 'https://you360.herokuapp.com/api';
+  url: string = 'http://localhost:3000/api';
   constructor(public http: Http,public storage:Storage,private transfer: Transfer) {
   }
 

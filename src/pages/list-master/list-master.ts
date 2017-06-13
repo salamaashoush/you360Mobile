@@ -29,7 +29,7 @@ export class ListMasterPage {
    * The view loaded, let's query our items for the list
    */
   ionViewDidEnter(){
-    this.socket.get().subscribe((data) => {
+    this.socket.listen('new video').subscribe((data) => {
         this.videos.push(data)
         console.log(data);
       },
