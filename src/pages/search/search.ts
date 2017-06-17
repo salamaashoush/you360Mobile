@@ -2,10 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { ItemDetailPage } from '../item-detail/item-detail';
+import {Video} from "../../providers/video";
 
-import { Item } from '../../models/item';
-
-import { Items } from '../../providers/providers';
 
 
 @Component({
@@ -13,31 +11,31 @@ import { Items } from '../../providers/providers';
   templateUrl: 'search.html'
 })
 export class SearchPage {
-  
-  currentItems: any = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public items: Items) { }
+  currentVideos: any = [];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public video: Video) { }
 
   /**
    * Perform a service for the proper items.
    */
-  getItems(ev) {
+  getVideos(ev) {
     let val = ev.target.value;
     if (!val || !val.trim()) {
-      this.currentItems = [];
+      this.currentVideos = [];
       return;
     }
-    this.currentItems = this.items.query({
-      name: val
+    this.video.search(val).subscribe((res)=>{
+      this.currentVideos = res.json();
     });
   }
 
   /**
    * Navigate to the detail page for this item.
    */
-  openItem(item: Item) {
+  openVideo(video) {
     this.navCtrl.push(ItemDetailPage, {
-      item: item
+      video: this.video
     });
   }
 

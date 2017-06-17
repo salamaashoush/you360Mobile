@@ -8,15 +8,15 @@
 
 
 <ion-content>
-  <ion-searchbar (ionInput)="getItems($event)" placeholder="{{ 'SEARCH_PLACEHOLDER' | translate }}"></ion-searchbar>
+  <ion-searchbar (ionInput)="getVideos($event)" placeholder="{{ 'SEARCH_PLACEHOLDER' | translate }}"></ion-searchbar>
   <ion-list>
-    <button ion-item (click)="openItem(item)" *ngFor="let item of currentItems">
+    <button ion-item (click)="openVideo(video)" *ngFor="let video of currentVideos">
       <ion-avatar item-start>
-        <img [src]="item.profilePic" />
+        <img [src]="video.thumb" />
       </ion-avatar>
-      <h2>{{item.name}}</h2>
-      <p>{{item.about}}</p>
-      <ion-note item-end *ngIf="item.note">{{item.note}}</ion-note>
+      <h2>{{video.name}}</h2>
+      <p>{{video.description}}</p>
+      <ion-note item-end>{{video.views + " Views"}}</ion-note>
     </button>
   </ion-list>
 </ion-content>

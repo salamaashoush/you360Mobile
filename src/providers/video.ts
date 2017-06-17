@@ -125,5 +125,16 @@ export class Video {
       });
     return seq;
   }
+  search(q){
+    let seq = this.api.get(`search?q=${q}`).share();
+    seq
+      .map(res => res.json())
+      .subscribe(res => {
+        // If the API returned a successful response, mark the user as logged in
+      }, err => {
+        console.error('ERROR', err);
+      });
+    return seq;
+  }
 
 }
