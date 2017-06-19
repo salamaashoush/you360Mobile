@@ -1,3 +1,3 @@
-# Item Create
+# Video Create
 
-The Item Create Page creates new instances of `Item`, and will most commonly be used in a modal window to be presented by `ListMasterPage`.
+The Video Create Page creates new instances of `VideoProvider`,  and build form then handles video upload and sends video data to the server

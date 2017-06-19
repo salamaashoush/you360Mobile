@@ -2,10 +2,7 @@ declare var videojs:any;
 import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 
 /**
- * Generated class for the PlayerComponent component.
- *
- * See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
- * for more info on Angular Components.
+ * init videojs and panorama plugin on html video element to create 360 video view
  */
 @Component({
   selector: 'player',

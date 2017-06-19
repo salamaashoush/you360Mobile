@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 
 import { ItemCreatePage } from '../item-create/item-create';
+import { MapPage } from '../map/map';
 import { ItemDetailPage } from '../item-detail/item-detail';
 import {Video} from "../../providers/video";
 import {Socket} from "../../providers/socket";
 import {Storage} from "@ionic/storage";
+import {CardsPage} from "../cards/cards";
 
 @Component({
   selector: 'page-list-master',
@@ -26,7 +28,7 @@ export class ListMasterPage {
   }
 
   /**
-   * The view loaded, let's query our items for the list
+   * The view loaded, let's query our videos for the list
    */
   ionViewDidEnter(){
     this.video.all().subscribe((data)=>{
@@ -39,15 +41,14 @@ export class ListMasterPage {
   }
 
   /**
-   * Prompt the user to add a new item. This shows our ItemCreatePage in a
-   * modal and then adds the new item to our data source if the user created one.
+   * Navigate to the video create page
    */
   addVideo() {
     this.navCtrl.push(ItemCreatePage);
   }
 
   /**
-   * Delete an item from the list of items.
+   * Delete an video from the list of videos.
    */
   deleteVideo(video) {
     this.video.delete(video.id).subscribe((response)=>{
@@ -59,11 +60,23 @@ export class ListMasterPage {
   }
 
   /**
-   * Navigate to the detail page for this item.
+   * Navigate to the detail page for this video.
    */
   openVideo(video) {
     this.navCtrl.push(ItemDetailPage, {
       video
     });
+  }
+  /**
+   * Navigate to the map view page
+   */
+  showMap(){
+    this.navCtrl.setRoot(MapPage);
+  }
+  /**
+   * Navigate to the card view page
+   */
+  showCard(){
+    this.navCtrl.setRoot(CardsPage);
   }
 }

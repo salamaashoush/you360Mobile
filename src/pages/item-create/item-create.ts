@@ -61,18 +61,15 @@ export class ItemCreatePage implements OnInit, AfterViewInit {
       this.isReadyToSave = this.form.valid;
     });
   }
-
-
-  log() {
-    let tags = this.form.controls['tags'].value;
-    tags = tags.map((tag) => tag.name);
-    console.dir(tags);
-  }
-
+  /**
+    load the map when view inits
+   */
   ngAfterViewInit() {
     this.loadMap()
   }
-
+  /**
+   * if camera available open it and take picture as base64 and patch `thumb` form value  , get call file input native behaviour
+   */
   getPicture() {
     if (Camera['installed']()) {
       this.camera.getPicture({
@@ -88,7 +85,9 @@ export class ItemCreatePage implements OnInit, AfterViewInit {
       this.fileInput.nativeElement.click();
     }
   }
-
+  /**
+   * read the file as base 64 data  then patch `thumb` form value with data
+   */
   processWebImage(event) {
     let reader = new FileReader();
     reader.onload = (readerEvent) => {
@@ -98,7 +97,9 @@ export class ItemCreatePage implements OnInit, AfterViewInit {
 
     reader.readAsDataURL(event.target.files[0]);
   }
-
+  /**
+   * creates css url function with image url
+   */
   getProfileImageStyle() {
     return 'url(' + this.form.controls['thumb'].value + ')'
   }
@@ -111,14 +112,12 @@ export class ItemCreatePage implements OnInit, AfterViewInit {
   }
 
   /**
-   * The user is done and wants to create the item, so return it
-   * back to the presenter.
+   * The user is done and wants to create the video, now call the upload method to start uploading and wait until `filename` returned from the server then call video create endpoint with the data
    */
   done() {
     if (!this.form.valid) {
       return;
     }
-
     this.upload().subscribe((data) => {
       let filename = JSON.parse(data.response).filename;
       this.item = this.form.value;
@@ -134,13 +133,20 @@ export class ItemCreatePage implements OnInit, AfterViewInit {
       alert(error.message);
     })
   }
-
+  /**
+   * open the native file chooser then set `videoUrl` value to the file url
+   *
+   */
   getVideoUrl() {
     this.fileChooser.open().then((uri) => {
       this.videoUrl = uri;
     });
   }
 
+  /**
+   * call upload api endpoint to upload the video file and make uploading... text appear to notify the user
+   *
+   */
   upload() {
     let options = {
       fileKey: 'video',
@@ -152,15 +158,29 @@ export class ItemCreatePage implements OnInit, AfterViewInit {
 
   }
 
+  /**
+   * create a new map by passing HTMLElement
+   * then listen to MAP_READY event ```  map.one(GoogleMapsEvent.MAP_READY).then(() => { // your code}) ```
+   * You must wait for this event to fire before adding something to the map or modifying it in anyway
+   * then get the current position and move the camera to this position ```  map.getMyLocation().then((loc) => {})```
+   * then create new marker ```  map.addMarker(markerOptions).then(()=>{})```
+   * then added drag event on the marker to set lat and long for the video when marker position changed
+   *  ```
+   *  marker.on(GoogleMapsEvent.MARKER_DRAG_END).subscribe((event) => {
+              marker.getPosition().then((pos) => {
+                this.form.patchValue({'lat': pos.lat});
+                this.form.patchValue({'long': pos.lng});
+              });
+            });
+   ```
+   */
   loadMap() {
 
-    // create a new map by passing HTMLElement
+
     let element: HTMLElement = document.getElementById('map');
 
     let map: GoogleMap = this.googleMaps.create(element);
 
-    // listen to MAP_READY event
-    // You must wait for this event to fire before adding something to the map or modifying it in anyway
     map.one(GoogleMapsEvent.MAP_READY).then(() => {
       map.getMyLocation().then((loc) => {
         let position: CameraPosition = {
@@ -170,9 +190,9 @@ export class ItemCreatePage implements OnInit, AfterViewInit {
         };
         this.form.patchValue({'lat': loc.latLng.lat});
         this.form.patchValue({'long': loc.latLng.lng});
-        // move the map's camera to position
+
         map.moveCamera(position);
-        // create new marker
+
         let markerOptions: MarkerOptions = {
           position: loc.latLng,
           title: "you360 video",

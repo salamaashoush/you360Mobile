@@ -82,9 +82,6 @@ export class User {
     this._user = null;
     this._token = null;
   }
-  checkAuth(){
-
-  }
   /**
    * Process a login/signup response to store user data
    */

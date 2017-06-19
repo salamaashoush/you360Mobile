@@ -11,35 +11,83 @@
   <div style="height: 50vh; width: 100%">
     <player [src]="video.stream"></player>
   </div>
-  <ion-segment>
-    <ion-segment-button (click)="like()">
-      <ion-icon [name]="likeIcon" color="primary"> {{likes}}</ion-icon>
-    </ion-segment-button>
-    <ion-segment-button (click)="dislike()">
-      <ion-icon [name]="dislikeIcon" color="danger"> {{dislikes}}</ion-icon>
-    </ion-segment-button>
-    <ion-segment-button (click)="showPrompt()" >
-      <ion-icon name="text" color="secondary"> {{comments.length}}</ion-icon>
-    </ion-segment-button>
-  </ion-segment>
+  <ion-row>
+    <ion-col col-2 offset-1>
+      <button ion-button color="primary" clear small icon-left>
+        <ion-icon name="eye" item-end color="primary"> </ion-icon>
+        {{views}}
+      </button>
+    </ion-col>
+    <ion-col col-2>
+      <button ion-button color="primary" clear small icon-left (click)="like(video)">
+        <ion-icon [name]="likeIcon"></ion-icon>
+        {{ likes }}
+      </button>
+    </ion-col>
+    <ion-col col-2>
+      <button ion-button color="danger" clear small icon-left (click)="dislike(video)">
+        <ion-icon [name]="dislikeIcon"></ion-icon>
+        {{ dislikes }}
+      </button>
+    </ion-col>
+    <ion-col col-2>
+      <button ion-button color="primary" clear small icon-left (click)="showComment()">
+        <ion-icon name='text'></ion-icon>
+        {{ comments.length }}
+      </button>
+    </ion-col>
+    <ion-col col-2>
+      <button ion-button color="primary" clear small icon-left (click)="showReport()">
+        <ion-icon name='information-circle'></ion-icon>
+        Report
+      </button>
+    </ion-col>
+
+  </ion-row>
   <ion-item no-lines>
-    <ion-icon name="eye" item-end color="primary"> {{views}}</ion-icon>
     <h4 text-wrap>
       {{video.description}}
     </h4>
   </ion-item>
+  <div padding>
+    <ion-segment [(ngModel)]="choice">
+      <ion-segment-button value="comments">
+        Comments
+      </ion-segment-button>
+      <ion-segment-button (click)="getSimilar()" value="similar">
+        Similar Videos
+      </ion-segment-button>
+    </ion-segment>
+  </div>
 
-  <ion-list>
-    <ion-list-header>
-      Comments
-    </ion-list-header>
-    <ion-item *ngFor="let comment of comments">
-      <ion-icon name="text" item-end color="primary"></ion-icon>
-      <!--<h3>{{comment.owner.firstName}}</h3>-->
-      <p>{{comment.comment}}</p>
-    </ion-item>
+  <div [ngSwitch]="choice">
+    <ion-list *ngSwitchCase="'comments'">
+      <ion-list>
+        <ion-item *ngFor="let comment of comments">
+          <ion-icon name="text" item-end color="primary"></ion-icon>
+          <ion-avatar item-start>
+            <img [src]="comment.owner.image">
+          </ion-avatar>
+          <h3>{{comment.owner.firstName}}</h3>
+          <p>{{comment.comment}}</p>
+        </ion-item>
+      </ion-list>
+    </ion-list>
 
-  </ion-list>
-
+    <ion-list *ngSwitchCase="'similar'">
+      <ion-list>
+        <ion-item *ngFor="let video of similar">
+          <button ion-item (click)="openVideo(video)">
+            <ion-avatar item-start>
+              <img [src]="video.thumb" />
+            </ion-avatar>
+            <h2>{{video.name}}</h2>
+            <p>{{video.description}}</p>
+            <ion-note item-end>{{video.views + " Views"}}</ion-note>
+          </button>
+        </ion-item>
+      </ion-list>
+    </ion-list>
+  </div>
 
 </ion-content>

@@ -3,17 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, Http } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Storage, IonicStorageModule } from '@ionic/storage';
-
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core'
 import { MyApp } from './app.component';
 
 import { CardsPage } from '../pages/cards/cards';
-import { ContentPage } from '../pages/content/content';
 import { ItemCreatePage } from '../pages/item-create/item-create';
 import { ItemDetailPage } from '../pages/item-detail/item-detail';
 import { ListMasterPage } from '../pages/list-master/list-master';
 import { LoginPage } from '../pages/login/login';
 import { MapPage } from '../pages/map/map';
-import { MenuPage } from '../pages/menu/menu';
 import { SearchPage } from '../pages/search/search';
 import { SettingsPage } from '../pages/settings/settings';
 import { SignupPage } from '../pages/signup/signup';
@@ -42,21 +40,22 @@ import {Video} from "../providers/video";
 import {Socket} from "../providers/socket";
 import { AutoCompleteModule } from 'ionic2-auto-complete';
 import { TagsInputModule } from 'ionic2-tags-input';
-import {SearchComplete} from "../providers/searchComplete";
+import {AframePlayerComponent} from "../components/aframe-player/aframe-player";
+import {Report} from "../providers/report";
 
 
 
 
 
-// The translate loader needs to know where to load i18n files
-// in Ionic's static asset pipeline.
+/* The translate loader needs to know where to load i18n files
+* in Ionic's static asset pipeline.*/
 export function HttpLoaderFactory(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 export function provideSettings(storage: Storage) {
   /**
-   * The Settings provider takes a set of default settings for your app.
+   * The Settings provider takes a set of default settings for the app.
    *
    * You can add new settings options at any time. Once the settings are saved,
    * these values will not overwrite the saved values (this can be done manually if desired).
@@ -78,20 +77,19 @@ export function provideSettings(storage: Storage) {
 let pages = [
   MyApp,
   CardsPage,
-  ContentPage,
   ItemCreatePage,
   ItemDetailPage,
   ListMasterPage,
   LoginPage,
   MapPage,
-  MenuPage,
   SearchPage,
   SettingsPage,
   SignupPage,
   TabsPage,
   TutorialPage,
   WelcomePage,
-  PlayerComponent
+  PlayerComponent,
+  AframePlayerComponent
 ];
 
 export function declarations() {
@@ -117,7 +115,7 @@ export function providers() {
     Category,
     Video,
     Socket,
-    SearchComplete,
+    Report,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler }
@@ -143,6 +141,7 @@ export function providers() {
   ],
   bootstrap: [IonicApp],
   entryComponents: entryComponents(),
-  providers: providers()
+  providers: providers(),
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

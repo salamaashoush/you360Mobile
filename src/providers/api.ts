@@ -10,14 +10,17 @@ import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/trans
 
 /**
  * Api is a generic REST Api handler. Set your API url first.
+ * this providers also sets authentications header before every request
  */
 @Injectable()
 export class Api {
-  // url: string = 'https://you360.herokuapp.com/api';
-  url: string = 'http://localhost:3000/api';
+  url: string = 'https://you360.herokuapp.com/api';
+  // url: string = 'https://pushzfuyzc.localtunnel.me/api';
   constructor(public http: Http,public storage:Storage,private transfer: Transfer) {
   }
-
+  /**
+   * send GET Request to specific endpoint
+   */
   get(endpoint: string, params?: any, options?: RequestOptions) {
     if (!options) {
       options = new RequestOptions();
@@ -43,7 +46,9 @@ export class Api {
       return this.http.get(this.url + '/' + endpoint, options);
     });
   }
-
+  /**
+   * send POST Request to specific endpoint with the data
+   */
   post(endpoint: string, body: any, options?: RequestOptions) {
     if (!options) {
       options = new RequestOptions();
@@ -59,7 +64,9 @@ export class Api {
     });
 
   }
-
+  /**
+   * send PUT Request to specific endpoint with the data
+   */
   put(endpoint: string, body: any, options?: RequestOptions) {
     if (!options) {
       options = new RequestOptions();
@@ -74,7 +81,9 @@ export class Api {
       return this.http.put(this.url + '/' + endpoint, body, options);
     });
   }
-
+  /**
+   * send DELETE Request to specific endpoint
+   */
   delete(endpoint: string, options?: RequestOptions) {
     if (!options) {
       options = new RequestOptions();
@@ -90,7 +99,9 @@ export class Api {
     });
 
   }
-
+  /**
+   * send PATCH Request to specific endpoint with the data
+   */
   patch(endpoint: string, body: any, options?: RequestOptions) {
     if (!options) {
       options = new RequestOptions();
@@ -105,6 +116,9 @@ export class Api {
       return this.http.put(this.url + '/' + endpoint, body, options);
     });
   }
+  /**
+   * handles file uploads to specific path
+   */
   upload(path,uploadOptions) {
     const fileTransfer: TransferObject = this.transfer.create();
     let options: FileUploadOptions = uploadOptions

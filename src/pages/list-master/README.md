@@ -1,3 +1,3 @@
-# List Master
+# List Master (all videos)
 
-The List Master Page shows the details of instances of `Item`, and will most commonly be navigated to from `ListMasterPage`.
+The List all videos fetched from the server

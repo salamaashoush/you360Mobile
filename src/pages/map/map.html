@@ -10,3 +10,18 @@
 <ion-content>
   <div #map id="map" style="height:100%;"></div>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons end>
+      <button ion-button icon-right color="royal" (click)="showList()">
+      <ion-icon name="list"></ion-icon>
+      </button>
+      <button ion-button icon-right color="royal" (click)="showCard()">
+        <ion-icon name="card"></ion-icon>
+      </button>
+      <!--<button ion-button icon-right color="royal" (click)="showMap()">-->
+        <!--<ion-icon name="map"></ion-icon>-->
+      <!--</button>-->
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

@@ -1,3 +1,3 @@
 # Tabs
 
-Tabs is a common tabbed layout.
+this the main layout page of our app

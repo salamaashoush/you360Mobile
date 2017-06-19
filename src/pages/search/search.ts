@@ -17,7 +17,7 @@ export class SearchPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public video: Video) { }
 
   /**
-   * Perform a service for the proper items.
+   * Perform a service for the proper video.
    */
   getVideos(ev) {
     let val = ev.target.value;
@@ -31,7 +31,7 @@ export class SearchPage {
   }
 
   /**
-   * Navigate to the detail page for this item.
+   * Navigate to the detail page for this video.
    */
   openVideo(video) {
     this.navCtrl.push(ItemDetailPage, {

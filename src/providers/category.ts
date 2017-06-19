@@ -3,23 +3,7 @@ import { Http } from '@angular/http';
 import { Api } from './api';
 
 /**
- * Most apps have the concept of a User. This is a simple provider
- * with stubs for login/signup/etc.
- *
- * This User provider makes calls to our API at the `login` and `signup` endpoints.
- *
- * By default, it expects `login` and `signup` to return a JSON object of the shape:
- *
- * ```json
- * {
- *   status: 'success',
- *   user: {
- *     // User fields your app needs, like "id", "name", "email", etc.
- *   }
- * }
- * ```
- *
- * If the `status` field is not `success`, then an error is detected and returned.
+ * Category api provider
  */
 @Injectable()
 export class Category {
@@ -27,8 +11,7 @@ export class Category {
   constructor(public http: Http, public api: Api) {
   }
   /**
-   * Send a POST request to our login endpoint with the data
-   * the user entered on the form.
+   * Send a GET request to categories endpoint to get all categories from api
    */
   all() {
     let seq = this.api.get('categories').share();
@@ -37,8 +20,7 @@ export class Category {
   }
 
   /**
-   * Send a POST request to our signup endpoint with the data
-   * the user entered on the form.
+   * Send a GET request to categories endpoint to get specific category from api
    */
   get(catId: any) {
     let seq = this.api.get(`categories/${catId}`).share();
@@ -46,22 +28,10 @@ export class Category {
     seq
       .map(res => res.json())
       .subscribe(res => {
-        // If the API returned a successful response, mark the user as logged in
       }, err => {
         console.error('ERROR', err);
       });
 
-    return seq;
-  }
-  create(video){
-    let seq = this.api.post(`categories`,video).share();
-    seq
-      .map(res => res.json())
-      .subscribe(res => {
-        // If the API returned a successful response, mark the user as logged in
-      }, err => {
-        console.error('ERROR', err);
-      });
     return seq;
   }
 

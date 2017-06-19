@@ -1,7 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 
-import { GoogleMaps, GoogleMap, GoogleMapsEvent, LatLng, CameraPosition } from '@ionic-native/google-maps';
+import {
+  GoogleMaps, GoogleMap, GoogleMapsEvent, LatLng, CameraPosition, MarkerOptions,
+  Marker
+} from '@ionic-native/google-maps';
+import {Video} from "../../providers/video";
+import {ItemDetailPage} from "../item-detail/item-detail"
+import {CardsPage} from "../cards/cards";
+import {ListMasterPage} from "../list-master/list-master";
 
 declare var google: any;
 
@@ -10,21 +17,31 @@ declare var google: any;
   templateUrl: 'map.html'
 })
 export class MapPage {
-  
-  @ViewChild('map') map;
 
-  constructor(private googleMaps: GoogleMaps, public navCtrl: NavController, public platform: Platform) { }
+  @ViewChild('map') map;
+  videos : any[]
+
+  constructor(private googleMaps: GoogleMaps, public navCtrl: NavController, public platform: Platform,public video:Video) {
+
+  }
 
 
   ngAfterViewInit() {
-    this.loadMap();
+    this.video.all().subscribe((res)=>{
+      this.videos = res.json().docs;
+      this.loadMap();
+    });
+
   }
+
+  /**
+   * create a new map by passing HTMLElement
+   * then listen to MAP_READY event ```  map.one(GoogleMapsEvent.MAP_READY).then(() => { // your code}) ```
+   * You must wait for this event to fire before adding something to the map or modifying it in anyway
+   * then filter the videos and loop through it and create new marker in the video location ```  map.addMarker(markerOptions).then(()=>{})```
+   * then added click event on the marker to navigate to video details page
+   */
   loadMap() {
-    // make sure to create following structure in your view.html file
-    // and add a height (for example 100%) to it, else the map won't be visible
-    // <ion-content>
-    //  <div #map id="map" style="height:100%;"></div>
-    // </ion-content>
 
     // create a new map by passing HTMLElement
     let element: HTMLElement = document.getElementById('map');
@@ -33,67 +50,45 @@ export class MapPage {
 
     // listen to MAP_READY event
     // You must wait for this event to fire before adding something to the map or modifying it in anyway
-    map.one(GoogleMapsEvent.MAP_READY).then(() => console.log('Map is ready!'));
+    map.one(GoogleMapsEvent.MAP_READY).then(() => {
+      map.getMyLocation().then((loc) => {
+        let position: CameraPosition = {
+          target: loc.latLng,
+          zoom: 15,
+          tilt: 30
+        };
+        // move the map's camera to position
+        map.moveCamera(position);
+        // create new marker
 
-    // create LatLng object
-    let ionic: LatLng = new LatLng(43.0741904, -89.3809802);
-
-    // create CameraPosition
-    let position: CameraPosition = {
-      target: ionic,
-      zoom: 18,
-      tilt: 30
-    };
-
-    // move the map's camera to position
-    map.moveCamera(position);
-
-    // create new marker
-    //  let markerOptions: MarkerOptions = {
-    //    position: ionic,
-    //    title: 'Ionic'
-    //  };
-
-    //  const marker: Marker = map.addMarker(markerOptions)
-    //    .then((marker: Marker) => {
-    //       marker.showInfoWindow();
-    //     });
-    //  }
-
-    // initJSMaps(mapEle) {
-    //   new google.maps.Map(mapEle, {
-    //     center: { lat: 43.071584, lng: -89.380120 },
-    //     zoom: 16
-    //   });
-    // }
-
-    // initNativeMaps(mapEle) {
-    //   this.map = new GoogleMap(mapEle);
-    //   mapEle.classList.add('show-map');
-
-    //   GoogleMap.isAvailable().then(() => {
-    //     const position = new GoogleMapsLatLng(43.074395, -89.381056);
-    //     this.map.setPosition(position);
-    //   });
-    // }
-
-    // ionViewDidLoad() {
-    //   let mapEle = this.map.nativeElement;
-
-    //   if (!mapEle) {
-    //     console.error('Unable to initialize map, no map element with #map view reference.');
-    //     return;
-    //   }
-
-    //   // Disable this switch if you'd like to only use JS maps, as the APIs
-    //   // are slightly different between the two. However, this makes it easy
-    //   // to use native maps while running in Cordova, and JS maps on the web.
-    //   if (this.platform.is('cordova') === true) {
-    //     this.initNativeMaps(mapEle);
-    //   } else {
-    //     this.initJSMaps(mapEle);
-    //   }
-    // }
-
+        this.videos.filter((video)=>{return video.lat && video.long}).forEach((video)=>{
+          let latLong = new LatLng(video.lat,video.long);
+          let markerOptions: MarkerOptions = {
+            position: latLong,
+            title: video.name,
+            draggable: false,
+          };
+          map.addMarker(markerOptions)
+            .then((marker: Marker) => {
+              marker.showInfoWindow();
+              marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe((event) => {
+                this.navCtrl.push(ItemDetailPage,{video});
+              });
+            });
+        })
+      });
+    });
+  }
+  /**
+   * Navigate to the list view page
+   */
+  showList(){
+    this.navCtrl.setRoot(ListMasterPage);
+  }
+  /**
+   * Navigate to the card view page
+   */
+  showCard(){
+    this.navCtrl.setRoot(CardsPage);
   }
 }

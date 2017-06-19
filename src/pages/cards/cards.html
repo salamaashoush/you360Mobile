@@ -9,40 +9,47 @@
 
 <ion-content>
 
-  <ion-card *ngFor="let item of cardItems">
+  <ion-card *ngFor="let video of videos" (click)="openVideo(video)">
 
     <ion-item>
       <ion-avatar item-start>
-        <img [src]="item.user.avatar">
+        <img [src]="video.owner.image">
       </ion-avatar>
-      <h2>{{item.user.name}}</h2>
-      <p>{{item.date}}</p>
+      <h2>{{video.owner.firstName + video.owner.lastName}}</h2>
+      <p>{{video.createdAt}}</p>
     </ion-item>
 
-    <img [src]="item.image">
+    <img [src]="video.thumb">
 
     <ion-card-content>
-      <p>{{item.content}}</p>
+      <p>{{video.description}}</p>
     </ion-card-content>
 
     <ion-row>
       <ion-col>
-        <button ion-button color="primary" clear small icon-left>
-            <ion-icon name='thumbs-up'></ion-icon>
-            12 Likes
-          </button>
+        <ion-icon name='thumbs-up'> {{ video.likes.length }}</ion-icon>
       </ion-col>
       <ion-col>
-        <button ion-button color="primary" clear small icon-left>
-            <ion-icon name='text'></ion-icon>
-            4 Comments
-          </button>
+        <ion-icon name='thumbs-down'>{{ video.dislikes.length }}</ion-icon>
       </ion-col>
-      <ion-col center text-center>
-        <ion-note>
-          11h ago
-        </ion-note>
+      <ion-col>
+        <ion-icon name='text'>{{ video.comments.length }}</ion-icon>
       </ion-col>
     </ion-row>
   </ion-card>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons end>
+      <button ion-button icon-right color="royal" (click)="showList()">
+      <ion-icon name="list"></ion-icon>
+      </button>
+      <!--<button ion-button icon-right color="royal" (click)="showCard()">-->
+        <!--<ion-icon name="card"></ion-icon>-->
+      <!--</button>-->
+      <button ion-button icon-right color="royal" (click)="showMap()">
+        <ion-icon name="map"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

@@ -27,9 +27,9 @@ export class Socket {
    * initialize socket serverUrl variable and connect to the socket io server
    */
   constructor(public storage:Storage) {
-    // const socketUrl = 'https://you360.herokuapp.com';
+    const socketUrl = 'https://you360.herokuapp.com';
 
-    const socketUrl = 'http://localhost:3000';
+    // const socketUrl = 'https://pushzfuyzc.localtunnel.me'
     this.socket = io.connect(socketUrl);
     this.storage.get('user').then((user)=>{this._user=user});
   }
@@ -87,7 +87,7 @@ export class Socket {
    * ```
    */
   newComment(videoId,comment) {
-    this.socket.emit('new comment', {videoId:videoId,comment:{uid:this._user,comment:comment}});
+    this.socket.emit('new comment', {videoId:videoId,comment:{owner:this._user,comment:comment}});
   }
   /**
    *  emit 'view video' socket event

@@ -10,8 +10,6 @@ import {Api} from "../../providers/api";
 /**
  * The Welcome Page is a splash page that quickly describes the app,
  * and then directs the user to create an account or log in.
- * If you'd like to immediately put the user onto a login/signup page,
- * we recommend not using the Welcome page.
 */
 @Component({
   selector: 'page-welcome',
@@ -19,17 +17,21 @@ import {Api} from "../../providers/api";
 })
 export class WelcomePage {
 
-  constructor(public navCtrl: NavController,private storage:Storage,private api:Api) {
+  constructor(public navCtrl: NavController) {
 
   }
   ionViewDidLoad() {
 
   }
-
+  /**
+   * change the view to show login page using navigation controller
+   */
   login() {
     this.navCtrl.push(LoginPage);
   }
-
+  /**
+   * change the view to show register page using navigation controller
+   */
   signup() {
     this.navCtrl.push(SignupPage);
   }
