@@ -8,37 +8,33 @@
 
 <ion-content>
 
-  <form [formGroup]="form" *ngIf="settingsReady">
-    <ion-list *ngIf="page == 'main'">
+  <form (submit)="doUpdate()">
+    <ion-list>
+
       <ion-item>
-        <ion-label>{{ 'SETTINGS_OPTION1' | translate }}</ion-label>
-        <ion-toggle formControlName="option1"></ion-toggle>
+        <ion-label fixed>{{ 'FIRST_NAME' | translate }}</ion-label>
+        <ion-input type="text" [(ngModel)]="user.firstName" name="firstName"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label>{{ 'SETTINGS_OPTION2' | translate }}</ion-label>
-        <ion-input formControlName="option2"></ion-input>
+        <ion-label fixed>{{ 'LAST_NAME' | translate }}</ion-label>
+        <ion-input type="text" [(ngModel)]="user.lastName" name="lastName"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label>{{ 'SETTINGS_OPTION3' | translate }}</ion-label>
-        <ion-select formControlName="option3">
-          <ion-option value="1" checked="true">1</ion-option>
-          <ion-option value="2">2</ion-option>
-          <ion-option value="3">3</ion-option>
-        </ion-select>
+        <ion-label fixed>{{ 'EMAIL' | translate }}</ion-label>
+        <ion-input type="email" [(ngModel)]="user.email" name="email"></ion-input>
       </ion-item>
 
-      <button ion-item [navPush]="subSettings" [navParams]="profileSettings">
-        {{ 'SETTINGS_PROFILE_BUTTON' | translate }}
-      </button>
-    </ion-list>
-
-    <ion-list *ngIf="page == 'profile'">
       <ion-item>
-        <ion-label>{{ 'SETTINGS_OPTION4' | translate }}</ion-label>
-        <ion-input formControlName="option4"></ion-input>
+        <ion-label fixed>{{ 'PASSWORD' | translate }}</ion-label>
+        <ion-input type="password" [(ngModel)]="user.password" name="password"></ion-input>
       </ion-item>
+
+      <div padding>
+        <button ion-button color="primary" block>{{ 'UPDATE_PROFILE' | translate }}</button>
+      </div>
+
     </ion-list>
   </form>
 

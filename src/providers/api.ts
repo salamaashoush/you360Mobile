@@ -14,8 +14,8 @@ import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/trans
  */
 @Injectable()
 export class Api {
-  url: string = 'https://you360.herokuapp.com/api';
-  // url: string = 'https://pushzfuyzc.localtunnel.me/api';
+  // url: string = 'https://you360.herokuapp.com/api';
+  url: string = 'http://45.33.38.90/api';
   constructor(public http: Http,public storage:Storage,private transfer: Transfer) {
   }
   /**
@@ -119,18 +119,20 @@ export class Api {
   /**
    * handles file uploads to specific path
    */
-  upload(path,uploadOptions) {
+  upload(path,uploadOptions,progressCb) {
     const fileTransfer: TransferObject = this.transfer.create();
     let options: FileUploadOptions = uploadOptions
+    uploadOptions.chunkedMode = true;
     let storageObservable = Observable.fromPromise(this.storage.get('token'));
     return storageObservable.flatMap(token => {
       if (token) {
         options.headers={
-          'Authorization': token
+          'Authorization': token,
         };
       }
       // the value that will be returned
-      return Observable.fromPromise(fileTransfer.upload(path, this.url+'/videos/upload', options,true));
+      fileTransfer.onProgress(progressCb);
+      return Observable.fromPromise(fileTransfer.upload(path, this.url+'/videos/upload', options,));
     });
   }
 }

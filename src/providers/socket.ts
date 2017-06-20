@@ -29,7 +29,7 @@ export class Socket {
   constructor(public storage:Storage) {
     const socketUrl = 'https://you360.herokuapp.com';
 
-    // const socketUrl = 'https://pushzfuyzc.localtunnel.me'
+    // const socketUrl = 'http://45.33.38.90'
     this.socket = io.connect(socketUrl);
     this.storage.get('user').then((user)=>{this._user=user});
   }

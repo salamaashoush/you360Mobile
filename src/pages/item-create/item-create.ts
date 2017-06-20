@@ -35,6 +35,7 @@ export class ItemCreatePage implements OnInit, AfterViewInit {
   categories: any;
   tags: any;
   form: FormGroup;
+  progress:any;
 
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
@@ -130,7 +131,7 @@ export class ItemCreatePage implements OnInit, AfterViewInit {
 
       this.navCtrl.pop();
     }, (error) => {
-      alert(error.message);
+      console.log(error);
     })
   }
   /**
@@ -154,7 +155,12 @@ export class ItemCreatePage implements OnInit, AfterViewInit {
     };
     let filePath = this.videoUrl;
     this.isUploading = true;
-    return this.api.upload(filePath, options);
+    return this.api.upload(filePath, options,(event:ProgressEvent)=>{
+      if (event.lengthComputable) {
+        this.progress = Math.round((event.loaded / event.total) * 100);
+        console.log("Progress: ", this.progress);
+      }
+    });
 
   }
 

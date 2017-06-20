@@ -3,7 +3,6 @@ import { Http } from '@angular/http';
 import { Api } from './api';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
-import {Storage} from "@ionic/storage";
 
 /**
  * Most apps have the concept of a User. This is a simple provider
@@ -67,6 +66,23 @@ export class User {
         // If the API returned a successful response, mark the user as logged in
         if (res.status == 'success') {
           this._loggedIn(res);
+        }
+      }, err => {
+        console.error('ERROR', err);
+      });
+
+    return seq;
+  }
+  /**
+   * Send a PUT request to our user endpoint with the data
+   */
+  update(userId: any, accountInfo: any) {
+    let seq = this.api.put(`users/${userId}`, accountInfo).share();
+
+    seq
+      .map(res => res.json())
+      .subscribe(res => {
+        if (res.status == 'success') {
         }
       }, err => {
         console.error('ERROR', err);

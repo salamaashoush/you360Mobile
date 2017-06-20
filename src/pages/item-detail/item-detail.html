@@ -9,7 +9,12 @@
 
 <ion-content>
   <div style="height: 50vh; width: 100%">
-    <player [src]="video.stream"></player>
+    <div class="violated" *ngIf="video.violated">
+      <h2>This video is violated copyrights</h2>
+      <p>Copyright Owner: {{ video.copyrights.name}}</p>
+      <p>Violation Description: {{ video.copyrights.description}}</p>
+    </div>
+    <player [src]="video.stream" *ngIf="!video.violated"></player>
   </div>
   <ion-row>
     <ion-col col-2 offset-1>

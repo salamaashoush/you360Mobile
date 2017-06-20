@@ -52,7 +52,7 @@
         <tags-input formControlName="tags" alertTitleLabel="Add Tag" alertInputPlaceholder="Tag" alertButtonLabel="Add" buttonLabel="Tag"></tags-input>
       </ion-item>
       <ion-item>
-        <ion-label *ngIf="videoUrl">Uploading....</ion-label>
+        <ion-label *ngIf="videoUrl">Uploading.... {{ progress }} %</ion-label>
         <ion-spinner *ngIf="isUploading"></ion-spinner>
       </ion-item>
       <ion-item>

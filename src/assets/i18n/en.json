@@ -9,27 +9,27 @@
   "LOGIN": "Sign in",
   "SIGNUP": "Sign up",
 
-  "TAB1_TITLE": "Items",
+  "TAB1_TITLE": "Videos",
   "TAB2_TITLE": "Search",
   "TAB3_TITLE": "Settings",
 
-  "MAP_TITLE": "Map",
+  "MAP_TITLE": "Videos Map",
 
   "TUTORIAL_SKIP_BUTTON" : "Skip",
   "TUTORIAL_CONTINUE_BUTTON" : "Continue",
 
-  "TUTORIAL_SLIDE1_TITLE": "Welcome to the Ionic Super Starter",
-  "TUTORIAL_SLIDE1_DESCRIPTION": "The <b>Ionic Super Starter</b> is a fully-featured Ionic starter with many pre-built pages and best practices.",
+  "TUTORIAL_SLIDE1_TITLE": "Welcome to the You360 app",
+  "TUTORIAL_SLIDE1_DESCRIPTION": "You 360 is a 360 video streaming platform",
 
-  "TUTORIAL_SLIDE2_TITLE": "How to use the Super Starter",
-  "TUTORIAL_SLIDE2_DESCRIPTION": "Assemble the various page types you want and remove the ones you don't. We've provided many common mobile app page layouts, like login and signup pages, tabs, and this tutorial page.",
+  "TUTORIAL_SLIDE2_TITLE": "How to use the You360 app",
+  "TUTORIAL_SLIDE2_DESCRIPTION": "Create an account and sign in then start watching or uploading 360 videos",
 
   "TUTORIAL_SLIDE3_TITLE": "Getting Started",
-  "TUTORIAL_SLIDE3_DESCRIPTION": "Need help? Check out the Super Starter README for a full tutorial",
+  "TUTORIAL_SLIDE3_DESCRIPTION": "After Signing in successfully the app redirect you to videos page you can click on any video to open video details page , or you can click the upper plus button to open video upload page then fill the form and click on the check button on the upper corner , in the video details page you can play video and like it or comment , dislike , report, and find similar videos ",
 
   "TUTORIAL_SLIDE4_TITLE": "Ready to Play?",
 
-  "WELCOME_INTRO" : "The starting point for your next great Ionic app",
+  "WELCOME_INTRO" : "Welcome, Please Login or create new Account",
 
   "SETTINGS_TITLE": "Settings",
   "SETTINGS_OPTION1": "Option 1",
@@ -67,8 +67,9 @@
   "CANCEL_BUTTON" : "Cancel",
   "DELETE_BUTTON" : "Delete",
 
-  "CARDS_TITLE": "Social",
+  "CARDS_TITLE": "Videos",
 
   "SEARCH_TITLE": "Search",
-  "SEARCH_PLACEHOLDER" : "Search the videos list, e.g. \"Donald Duck\""
+  "SEARCH_PLACEHOLDER" : "Search the videos list, e.g. \"Donald Duck\"",
+  "UPDATE_PROFILE":"Update"
 }
